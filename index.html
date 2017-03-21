@@ -5,27 +5,55 @@
     <title>D3????</title>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <style>
-.chart div {
+.clinton div {
     font: 10px sans-serif;
     background-color: steelblue;
     text-align: right;
     padding: 3px;
     margin: 1px;
     color: white;
+    position: relative;
+    width: 50%;
+    right:0px;
+}
+.bush div {
+    font: 10px sans-serif;
+    background-color: red;
+    text-align: left;
+    padding: 3px;
+    margin: 1px;
+    color: white;
+    width: 50%;
+    position: relative;
 }
     </style>
 </head>
 <body>
-    <div class="chart"></div>
+    <h1>Government Spending</h1>
+    <br>
+    <h3>Clinton </h3>
+    <div class="clinton"></div>
+    <br>
+    <h3> Bush </h3>
+    <div class="bush"></div>
 <script>
-var data = [4, 8, 15, 16, 23, 42];
-d3.select(".chart")
+var clinton = [["a",4], ["b",8], ["c",15], ["d",16], ["e",23], ["f",42]];
+var bush = [["a",5], ["b",7], ["c",12], ["d",15], ["e",29], ["f",38]];
+
+d3.select(".clinton")
 .selectAll("div")
-.data(data)
+.data(clinton)
     .enter().append("div")
     .style("width",function(d){
-        return d*10 + "px";})
-    .text(function(d){return d;});
+        return d[1]*10 + "px";})
+    .text(function(d){return d[0];});
+d3.select(".bush")
+.selectAll("div")
+.data(bush)
+    .enter().append("div")
+    .style("width",function(d){
+        return d[1]*10 + "px";})
+    .text(function(d){return d[0];});
 </script>
 </body>
 </html>
