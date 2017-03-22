@@ -5,13 +5,16 @@
     <title>D3????</title>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <style>
+      body {
+      	font-family: sans-serif;
+      }
 .clinton div {
     font: 10px sans-serif;
     background-color: steelblue;
     text-align: right;
     padding: 3px;
     margin: 1px;
-    color: white;
+    color: #000;
     position: relative;
     width: 50%;
     right:0px;
@@ -22,7 +25,7 @@
     text-align: left;
     padding: 3px;
     margin: 1px;
-    color: white;
+    color: #000;
     width: 50%;
     position: relative;
 }
@@ -31,28 +34,80 @@
 <body>
     <h1>Government Spending</h1>
     <br>
-    <h3>Clinton </h3>
+    <h3>Bill Clinton </h3>
     <div class="clinton"></div>
     <br>
-    <h3> Bush </h3>
+    <h3>George W. Bush </h3>
     <div class="bush"></div>
-<script>
-var clinton = [["a",4], ["b",8], ["c",15], ["d",16], ["e",23], ["f",42]];
-var bush = [["a",5], ["b",7], ["c",12], ["d",15], ["e",29], ["f",38]];
+    <script>
+      var bush2006 = [["Dept. of Agriculture","$99,207,679,253"],
+		["Dept. of Commerce","$6,758,591,429"],
+		["Dept. of Defense - Military Programs","$529,639,372,083"],
+		["Dept. of Education","$99,032,668,646"],
+		["Dept. of Energy","$20,841,111,582"],
+		["Dept. of Health and Human Services","$651,542,214,679"],
+		["Dept. of Homeland Security","$73,212,770,470"],
+		["Dept. of Housing and Urban Development","$45,009,546,033"],
+		["Dept. of the Interior","$9,585,277,895"],
+		["Dept. of Justice","$24,739,075,095"],
+		["Dept. of Labor","$45,755,197,284"],
+		["Dept. of State","$13,738,862,961"],
+		["Dept. of Transportation","$63,787,653,797"],
+		["Dept. of the Treasury","$492,866,991,938"],
+		["Dept. of Veterans Affairs","$74,010,394,569"],
+		["Environmental Protection Agency","$8,825,837,929"],
+		["General Services Administration","$25,456,088"],
+		["International Assistance Programs","$14,761,349,172"],
+		["NASA","$16,042,638,947"],
+		["Social Security Administration","$621,280,229,104"],
+		["Other Departments and Agencies","$157,429,995,757"]];
+
+var clinton2000 = [["Dept. of Agriculture","$92,145,575,058"],
+		   ["Dept. of Commerce","$9,559,346,998"],
+		   ["Dept. of Defense - Military Programs","$344,946,606,112"],
+		   ["Dept. of Education","$41,089,971,768"],
+		   ["Dept. of Energy","$18,376,089,358"],
+		   ["Dept. of Health and Human Services","$469,265,987,480"],
+		   ["Dept. of Homeland Security","$16,151,957,775"],
+		   ["Dept. of Housing and Urban Development","$37,782,005,646"],
+		   ["Dept. of the Interior","$9,817,110,592"],
+		   ["Dept. of Justice","$20,677,550,018"],
+		   ["Dept. of Labor","$39,122,376,334"],
+		   ["Dept. of State","$8,207,929,299"],
+		   ["Dept. of Transportation","$51,006,505,462"],
+		   ["Dept. of the Treasury","$479,346,998,895"],
+		   ["Dept. of Veterans Affairs","$57,743,954,829"],
+		   ["Environmental Protection Agency","$8,865,840,186"],
+		   ["General Services Administration","$90,830,980"],
+		   ["International Assistance Programs","$14,836,136,000"],
+		   ["NASA","$16,482,140,665"],
+		   ["Social Security Administration","$541,659,506,566"],
+		   ["+Other Departments and Agencies","$131,035,964,158"]];
+
+var parseDollars = function(str) {
+    var ans = "";
+    for (var i=0; i<str.length; i++) {
+	let piece = str.substring(i,i+1);
+	if (piece != "$" && piece != ",")
+	    ans+=piece;
+    }
+    console.log(ans);
+    return parseInt(ans,10);
+};
 
 d3.select(".clinton")
 .selectAll("div")
-.data(clinton)
+.data(clinton2000)
     .enter().append("div")
     .style("width",function(d){
-        return d[1]*10 + "px";})
+        return (parseDollars(d[1])/1000000000) + "px";})
     .text(function(d){return d[0];});
 d3.select(".bush")
 .selectAll("div")
-.data(bush)
+.data(bush2006)
     .enter().append("div")
     .style("width",function(d){
-        return d[1]*10 + "px";})
+        return (parseDollars(d[1])/1000000000) + "px";})
     .text(function(d){return d[0];});
 </script>
 </body>
